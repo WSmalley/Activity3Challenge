@@ -1,0 +1,100 @@
+<html>
+<head>
+<title>PyBank.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #a9b7c6;}
+.s1 { color: #cc7832;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+.s4 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+PyBank.py</font>
+</center></td></tr></table>
+<pre>
+<span class="s1">import </span><span class="s0">os</span>
+<span class="s1">import </span><span class="s0">csv</span>
+
+<span class="s2">#count months</span>
+
+<span class="s0">monthscount = </span><span class="s3">0</span>
+<span class="s0">plcount = </span><span class="s3">0</span>
+
+
+<span class="s0">csv_path = os.path.join(</span><span class="s4">&quot;/Users/willsmalley/Downloads/Starter_Code/PyBank/Resources/budget_data.csv&quot;</span><span class="s0">)</span>
+
+<span class="s1">with </span><span class="s0">open(csv_path</span><span class="s1">, </span><span class="s4">'r'</span><span class="s0">) </span><span class="s1">as </span><span class="s0">csvfile:</span>
+    <span class="s0">csvreader =csv.reader(csvfile)</span>
+    <span class="s0">header = next(csvreader)</span>
+
+    <span class="s1">for </span><span class="s0">row </span><span class="s1">in </span><span class="s0">csvreader:</span>
+        <span class="s0">months = row[</span><span class="s3">0</span><span class="s0">]</span>
+        <span class="s0">profitloss = int(row[</span><span class="s3">1</span><span class="s0">])</span>
+
+        <span class="s0">monthscount += </span><span class="s3">1            </span><span class="s2">#month total</span>
+        <span class="s0">plcount += int(row[</span><span class="s3">1</span><span class="s0">])      </span><span class="s2">#p&amp;l calculation</span>
+
+<span class="s0">print(</span><span class="s4">f'total months: </span><span class="s1">{</span><span class="s0">monthscount</span><span class="s1">}</span><span class="s4">'</span><span class="s0">)</span>
+<span class="s0">print(</span><span class="s4">f'profit&amp;loss: </span><span class="s1">{</span><span class="s0">plcount</span><span class="s1">}</span><span class="s4">'</span><span class="s0">)</span>
+
+
+<span class="s2">#Find monthly trends/average</span>
+
+<span class="s0">total_changes = </span><span class="s3">0</span>
+<span class="s0">monthchanges = </span><span class="s3">0</span>
+<span class="s0">previous_profit_loss = </span><span class="s1">None</span>
+<span class="s0">maxchange = </span><span class="s3">0</span>
+<span class="s0">minchange = </span><span class="s3">0</span>
+
+<span class="s0">csv_path = os.path.join(</span><span class="s4">'/Users/willsmalley/Downloads/Starter_Code/PyBank/Resources/budget_data.csv'</span><span class="s0">)</span>
+
+<span class="s1">with </span><span class="s0">open(csv_path</span><span class="s1">, </span><span class="s4">'r'</span><span class="s0">) </span><span class="s1">as </span><span class="s0">csvfile:</span>
+    <span class="s0">csvreader = csv.DictReader(csvfile)</span>
+
+    <span class="s1">for </span><span class="s0">row </span><span class="s1">in </span><span class="s0">csvreader:</span>
+        <span class="s0">profit_loss = int(row[</span><span class="s4">'Profit/Losses'</span><span class="s0">])</span>
+
+
+        <span class="s1">if </span><span class="s0">previous_profit_loss </span><span class="s1">is not None</span><span class="s0">:</span>
+            <span class="s0">change = profit_loss - previous_profit_loss</span>
+            <span class="s0">total_changes += change</span>
+            <span class="s0">monthchanges += </span><span class="s3">1</span>
+
+<span class="s2">##Find highest &amp; lowest monthly totals</span>
+            <span class="s1">if </span><span class="s0">change &gt; maxchange:</span>
+                <span class="s0">maxchange = change</span>
+            <span class="s1">if </span><span class="s0">change &lt; minchange:</span>
+                <span class="s0">minchange = change</span>
+
+        <span class="s0">previous_profit_loss = profit_loss</span>
+
+<span class="s2"># Calculate the average change</span>
+<span class="s1">if </span><span class="s0">monthchanges &gt; </span><span class="s3">0</span><span class="s0">:</span>
+    <span class="s0">average_change = total_changes / monthchanges</span>
+
+
+<span class="s0">print(</span><span class="s4">f&quot;Total Change in Profit/Losses: </span><span class="s1">{</span><span class="s0">total_changes</span><span class="s1">}</span><span class="s4">&quot;</span><span class="s0">)</span>
+<span class="s0">print(</span><span class="s4">f&quot;Average Change in Profit/Losses: </span><span class="s1">{</span><span class="s0">average_change</span><span class="s1">}</span><span class="s4">&quot;</span><span class="s0">)</span>
+<span class="s0">print(</span><span class="s4">f&quot;Max Change in Profit/Losses: </span><span class="s1">{</span><span class="s0">maxchange</span><span class="s1">} </span><span class="s4">on </span><span class="s1">{</span><span class="s0">str(months)</span><span class="s1">}</span><span class="s4">&quot;</span><span class="s0">)</span>
+<span class="s0">print(</span><span class="s4">f&quot;Min Change in Profit/Losses: </span><span class="s1">{</span><span class="s0">minchange</span><span class="s1">} </span><span class="s4">on </span><span class="s1">{</span><span class="s0">str(months)</span><span class="s1">}</span><span class="s4">&quot;</span><span class="s0">)</span>
+
+
+<span class="s2">#Find highest &amp; lowest monthly totals</span>
+
+
+
+
+
+
+
+
+
+
+</pre>
+</body>
+</html>

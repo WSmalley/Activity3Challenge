@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>PyPoll.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+PyPoll.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">os</span>
+<span class="s0">import </span><span class="s1">csv</span>
+
+<span class="s1">votescount = </span><span class="s2">0</span>
+<span class="s1">c1 = </span><span class="s2">0</span>
+<span class="s1">d1 = </span><span class="s2">0</span>
+<span class="s1">a1 = </span><span class="s2">0</span>
+
+
+
+<span class="s1">csv_path = os.path.join(</span><span class="s3">&quot;/Users/willsmalley/Downloads/Starter_Code/PyPoll/Resources/election_data.csv&quot;</span><span class="s1">)</span>
+
+<span class="s0">with </span><span class="s1">open(csv_path</span><span class="s0">, </span><span class="s3">'r'</span><span class="s1">) </span><span class="s0">as </span><span class="s1">csvfile:</span>
+    <span class="s1">csvreader =csv.reader(csvfile)</span>
+    <span class="s1">header = next(csvreader)</span>
+
+    <span class="s0">for </span><span class="s1">row </span><span class="s0">in </span><span class="s1">csvreader:</span>
+        <span class="s1">votes = row[</span><span class="s2">0</span><span class="s1">]</span>
+        <span class="s1">candidates = row[</span><span class="s2">2</span><span class="s1">]</span>
+        <span class="s1">votescount += </span><span class="s2">1</span>
+
+        <span class="s0">if </span><span class="s1">candidates == </span><span class="s3">&quot;Charles Casper Stockham&quot;</span><span class="s1">:</span>
+            <span class="s1">c1 += </span><span class="s2">1</span>
+            <span class="s1">percentcharles = (int(c1)/int(</span><span class="s2">369711</span><span class="s1">))*</span><span class="s2">100</span>
+
+        <span class="s0">if </span><span class="s1">candidates == </span><span class="s3">&quot;Diana DeGette&quot;</span><span class="s1">:</span>
+            <span class="s1">d1 += </span><span class="s2">1</span>
+            <span class="s1">percentdiana = (int(d1)/int(</span><span class="s2">369711</span><span class="s1">))*</span><span class="s2">100</span>
+
+        <span class="s0">if </span><span class="s1">candidates == </span><span class="s3">&quot;Raymon Anthony Doane&quot;</span><span class="s1">:</span>
+            <span class="s1">a1 += </span><span class="s2">1</span>
+            <span class="s1">percentantman = (int(a1)/int(</span><span class="s2">369711</span><span class="s1">))*</span><span class="s2">100</span>
+
+    <span class="s0">if </span><span class="s1">percentdiana &gt; (percentantman </span><span class="s0">and </span><span class="s1">percentcharles):</span>
+        <span class="s1">print(</span><span class="s3">&quot;Winner = Diana DeGette&quot;</span><span class="s1">)</span>
+    <span class="s0">if </span><span class="s1">percentcharles &gt; (percentantman </span><span class="s0">and </span><span class="s1">percentdiana):</span>
+        <span class="s1">print(</span><span class="s3">&quot;Winner = Charles Casper Stockham&quot;</span><span class="s1">)</span>
+    <span class="s0">if </span><span class="s1">percentantman &gt; (percentdiana </span><span class="s0">and </span><span class="s1">percentcharles):</span>
+        <span class="s1">print(</span><span class="s3">&quot;Winner = Raymon Anthony the ANTMAN Doane&quot;</span><span class="s1">)</span>
+
+
+<span class="s1">print(</span><span class="s3">f'total votes: </span><span class="s0">{</span><span class="s1">votescount</span><span class="s0">}</span><span class="s3">'</span><span class="s1">)</span>
+<span class="s1">print(</span><span class="s3">f'Percent for Charles Casper Stockham:</span><span class="s0">{</span><span class="s1">percentcharles</span><span class="s0">}</span><span class="s3">% (</span><span class="s0">{</span><span class="s1">c1</span><span class="s0">}</span><span class="s3">)'</span><span class="s1">)</span>
+<span class="s1">print(</span><span class="s3">f'Percent for Diana Degetee:</span><span class="s0">{</span><span class="s1">percentdiana</span><span class="s0">}</span><span class="s3">% (</span><span class="s0">{</span><span class="s1">d1</span><span class="s0">}</span><span class="s3">)'</span><span class="s1">)</span>
+<span class="s1">print(</span><span class="s3">f'Percent for Raymon Anthony Doane:</span><span class="s0">{</span><span class="s1">percentantman</span><span class="s0">}</span><span class="s3">% (</span><span class="s0">{</span><span class="s1">a1</span><span class="s0">}</span><span class="s3">)'</span><span class="s1">)</span>
+
+</pre>
+</body>
+</html>
